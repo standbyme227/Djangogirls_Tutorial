@@ -13,14 +13,14 @@
 <body>
     <div class="header">
         <div class="container">
-            <h1><a href="">Django Girls Blog</a></h1>
+            <h1><a href="{% url 'post-list' %}">Django Girls Blog</a></h1>
         </div>
     </div>
     <div class="container">
         <div class="post">
-            <p class="post_date">published: {{ post.published_date }}</p>
+            <p class="post-date">published: {{ post.published_date }}</p>
             <!--여기는 post의 published_date-->
-            <h2 class="post_title"><a href="">{{post.title}}</a></h2>
+            <h2 class="post-title"><a href="{% url 'post-detail' pk=post.pk %}">{{post.title}}</a></h2>
             <p class="post-content">{{post.content|linebreaksbr}}</p>
             <!--{% for post in posts %} post는 posts안에 있을때 마지막 post까지 반복-->
             <!--{% endfor %} for문 종료-->
