@@ -16,5 +16,8 @@ def post_list(request):
     # return HttpResponse('<html><body><h1>Post list</h1><p>Post목록을 보여줄 예정입니다.</p></body>')
 
 
-def post_detail(request):
-    return render(request, 'blog/post_detail.html')
+def post_detail(request, pk):
+    context= {
+        'post': Post.objects.get(pk=pk),
+    }
+    return render(request, 'blog/post_detail.html', context)
