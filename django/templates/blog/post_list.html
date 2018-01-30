@@ -6,22 +6,25 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>DjangoGirls Tutorial</title>
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/css/blog.css">
 </head>
 <body>
-    <div>
-        <h1><a href="">Django Girls Blog</a></h1>
-    </div>
+    <div class="container">
+        <div>
+            <h1><a href="">Django Girls Blog</a></h1>
+        </div>
 
-    {% for post in posts %}
-    <div>
-        <p>published: {{ post.published_date }}</p>
-        <!--여기는 post의 published_date-->
-        <h2><a href="">{{post.title}}</a></h2>
-        <p>{{post.content|linebreaksbr}}</p>
-        <!--{% for post in posts %} post는 posts안에 있을때 마지막 post까지 반복-->
-        <!--{% endfor %} for문 종료-->
+        {% for post in posts %}
+        <div>
+            <p>published: {{ post.published_date }}</p>
+            <!--여기는 post의 published_date-->
+            <h2><a href="">{{post.title}}</a></h2>
+            <p>{{post.content|linebreaksbr|truncatewords:5}}</p>
+            <!--{% for post in posts %} post는 posts안에 있을때 마지막 post까지 반복-->
+            <!--{% endfor %} for문 종료-->
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-
 </body>
 </html>
