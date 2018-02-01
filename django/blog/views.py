@@ -5,7 +5,7 @@ from .models import Post
 
 def post_list(request):
 
-    posts = Post.objects.all()
+    posts = Post.objects.all() #.order_by('-pk')
     context = {
         'posts': posts,
     }
@@ -23,6 +23,26 @@ def post_detail(request, pk):
     }
     return render(request, 'blog/post_detail.html', context)
 
+
+def post_edit(request, pk):
+    post = Post.objects.get(pk=pk)
+    if request.method == 'POST':
+        
+        title = request.POST['title']
+        content = request.POST['content']
+        post.title = title
+        post.content = content
+
+        post.save()
+        return redirect('post-detail', pk=post.pk)
+
+    post = Post.objects.get(pk=pk)
+    context={
+      'post': post
+    }
+
+    return render(request, 'blog/post_edit.html', context)
+
 def post_add(request):
     if request.method == 'POST':
         title = request.POST['title']
@@ -38,7 +58,10 @@ def post_add(request):
 
 
 def post_delete(request, pk):
-    post = Post.objects.get(pk=pk)
-    post.delete()
-    return redirect('post-list')
+    if request.method == 'POST':
+        post = Post.objects.get(pk=pk)
+        if request.user == post.author:
+            post.delete()
+            return redirect('post-list')
+        return redirect('post-detail', pk=post.pk)
 
