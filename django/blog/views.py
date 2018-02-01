@@ -26,35 +26,46 @@ def post_detail(request, pk):
 
 def post_edit(request, pk):
     post = Post.objects.get(pk=pk)
-    if request.method == 'POST':
-
-        title = request.POST['title']
-        content = request.POST['content']
-        post.title = title
-        post.content = content
-
-        post.save()
-        return redirect('post-detail', pk=post.pk)
-
-    post = Post.objects.get(pk=pk)
     context={
       'post': post
     }
 
+
+    if request.method == 'POST':
+
+        title = request.POST['title']
+        content = request.POST['content']
+
+        if title and content:
+
+            post.title = title
+            post.content = content
+            post.save()
+            return redirect('post-detail', pk=post.pk)
+        context['form_error'] = '제목과 내용을 입력해주세요'
+
     return render(request, 'blog/post_add_edit.html', context)
 
 def post_add(request):
+    context = {
+
+    }
     if request.method == 'POST':
         title = request.POST['title']
         content = request.POST['content']
-        post = Post.objects.create(
-            author=request.user,
-            title=title,
-            content=content
-        )
-        return redirect('post-detail', pk=post.pk)
-    else:
-        return render(request, 'blog/post_add_edit.html')
+
+        if not (title and content):
+
+            post = Post.objects.create(
+                author=request.user,
+                title=title,
+                content=content
+            )
+
+
+            return redirect('post-detail', pk=post.pk)
+        context['form_error'] = '제목과 내용을 입력해주세요'
+    return render(request, 'blog/post_add_edit.html', context)
 
 
 def post_delete(request, pk):
