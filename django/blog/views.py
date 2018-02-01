@@ -27,7 +27,7 @@ def post_detail(request, pk):
 def post_edit(request, pk):
     post = Post.objects.get(pk=pk)
     if request.method == 'POST':
-        
+
         title = request.POST['title']
         content = request.POST['content']
         post.title = title
@@ -41,7 +41,7 @@ def post_edit(request, pk):
       'post': post
     }
 
-    return render(request, 'blog/post_edit.html', context)
+    return render(request, 'blog/post_add_edit.html', context)
 
 def post_add(request):
     if request.method == 'POST':
@@ -54,7 +54,7 @@ def post_add(request):
         )
         return redirect('post-detail', pk=post.pk)
     else:
-        return render(request, 'blog/post_add.html')
+        return render(request, 'blog/post_add_edit.html')
 
 
 def post_delete(request, pk):
