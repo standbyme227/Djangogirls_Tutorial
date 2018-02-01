@@ -10,4 +10,8 @@
         <!--{% for post in posts %} post는 posts안에 있을때 마지막 post까지 반복-->
         <!--{% endfor %} for문 종료-->
     </div>
+<form action="{% url 'post-delete' pk=post.pk %}" method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">삭제하기</button>
+</form>
 {% endblock %}

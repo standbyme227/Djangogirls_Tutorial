@@ -9,8 +9,9 @@ urlpatterns = [
     path('/<int:pk>/', views.post_detail, name='post-detail'),
 
 
-    path('add/', views.post_add, name='post-add')
+    path('add/', views.post_add, name='post-add'),
 
+    path('<int:pk>/delete/', views.post_delete, name='post-delete'),
     # path('detail/', views.post_detail),
     # re.complie(re'(?P<pk>\d+)')
 ]
